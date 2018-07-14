@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{089b0ae1-6479-4317-a1a8-80b281d881ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{ae4cb425-d897-4f5f-8ee0-77b16852a41b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\cpp">
+      <UniqueIdentifier>{61f59289-709d-4584-9ad5-fc4f0c0fa9ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\cuda">
+      <UniqueIdentifier>{0535eb22-e95f-4cf6-a331-bde5cc019062}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{18856f27-7d7e-4219-90f4-1a16a70170eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Topology">
+      <UniqueIdentifier>{70a4eb3d-cedf-4bf3-8248-3714b0d3993b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\LinearAlgebra">
+      <UniqueIdentifier>{6d14b23c-e1b0-415e-a151-76d918ff847f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Geometry">
+      <UniqueIdentifier>{4f738d94-9da8-4a8f-8d65-e14730ae6389}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Calculus">
+      <UniqueIdentifier>{3fab8ebd-bdb8-462b-b047-84e1c0f790b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Mesh">
+      <UniqueIdentifier>{36178630-2564-4664-be4d-49f8f5a7526e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\FEM">
+      <UniqueIdentifier>{275f60a6-c7ba-416e-9116-287ad3faab71}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="YFEM.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Topology.h">
+      <Filter>include\Topology</Filter>
+    </ClInclude>
+    <ClInclude Include="Domain.h">
+      <Filter>include\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>include\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Patch.h">
+      <Filter>include\FEM</Filter>
+    </ClInclude>
+    <ClInclude Include="FEM.h">
+      <Filter>include\FEM</Filter>
+    </ClInclude>
+    <ClInclude Include="Polynomial.h">
+      <Filter>include\Calculus</Filter>
+    </ClInclude>
+    <ClInclude Include="Integration.h">
+      <Filter>include\Calculus</Filter>
+    </ClInclude>
+    <ClInclude Include="Differential.h">
+      <Filter>include\Calculus</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>include\Geometry</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="kernel.cu">
+      <Filter>source\cuda</Filter>
+    </CudaCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="test.cpp">
+      <Filter>source\cpp</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

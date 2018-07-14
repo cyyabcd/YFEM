@@ -3,7 +3,8 @@
 #include "device_launch_parameters.h"
 
 #include <stdio.h>
-
+#include "Common.h"
+#if TEST == 0
 cudaError_t addWithCuda(int *c, const int *a, const int *b, unsigned int size);
 
 __global__ void addKernel(int *c, const int *a, const int *b)
@@ -119,3 +120,4 @@ Error:
     
     return cudaStatus;
 }
+#endif

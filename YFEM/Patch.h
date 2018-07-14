@@ -1,0 +1,29 @@
+#pragma once
+#include "Common.h"
+
+namespace YFEM
+{
+	struct Patch
+	{
+		Patch(count_t ElementNum) :ElementNum(ElementNum)
+		{
+		}
+		Patch(index_t x, index_t y)
+			:ElementNum(x*y), position(std::vector<index_t[2]>(ElementNum))
+		{
+			maxx = x - 1;
+			maxy = y - 1;
+			index_t row;
+			for (index_t j = 0; j < y; ++j) {
+				row = j * x;
+				for (index_t i = 0; i < x; ++i) {
+					position[row + i][0] = i;
+					position[row + i][1] = j;
+				}
+			}
+		}
+		count_t ElementNum;
+		index_t maxx, maxy;
+		std::vector<index_t[2]> position;
+	};
+}
