@@ -92,6 +92,7 @@
     <ClInclude Include="Domain.h" />
     <ClInclude Include="FEM.h" />
     <ClInclude Include="Geometry.h" />
+    <ClInclude Include="Graph.h" />
     <ClInclude Include="Integration.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Patch.h" />

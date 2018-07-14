@@ -69,6 +69,9 @@
     <ClInclude Include="Geometry.h">
       <Filter>include\Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="Graph.h">
+      <Filter>include\Topology</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="kernel.cu">
