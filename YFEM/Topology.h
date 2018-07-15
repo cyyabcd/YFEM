@@ -7,28 +7,33 @@ namespace YFEM
 	Vertex uninitialized = _I32_MIN;
 	struct Edge
 	{
-		Edge(Vertex& node0, Vertex& node1) {
+		Edge(Vertex& node0, Vertex& node1) 
+		{
 			node[0] = node0;
 			node[1] = node1;
 		}
-		void Set(Vertex& node0, Vertex& node1) {
+		void Set(Vertex& node0, Vertex& node1)
+		{
 			node[0] = node0;
 			node[1] = node1;
 		}
 		Vertex node[2];
 	};
 	struct Triangle {
-		Triangle(Vertex& node0, Vertex& node1, Vertex& node2) {
+		Triangle(Vertex& node0, Vertex& node1, Vertex& node2)
+		{
 			node[0] = node0;
 			node[1] = node1;
 			node[2] = node2;
 		}
-		void Set(Vertex& node0, Vertex& node1, Vertex& node2) {
+		void Set(Vertex& node0, Vertex& node1, Vertex& node2) 
+		{
 			node[0] = node0;
 			node[1] = node1;
 			node[2] = node2;
 		}
-		Edge OppositeEdge(Vertex& i) {
+		Edge OppositeEdge(Vertex& i) 
+		{
 			Edge edge(uninitialized, uninitialized);
 			if (i == 0) { edge.Set(node[1], node[2]); }
 			else if (i == 1) { edge.Set(node[2], node[0]); }
@@ -41,7 +46,8 @@ namespace YFEM
 		}
 		Vertex node[3];
 	};
-	struct Quadrangle {
+	struct Quadrangle
+	{
 		Quadrangle(Vertex& node0, Vertex& node1, Vertex& node2, Vertex& node3) {
 			node[0] = node0;
 			node[1] = node1;

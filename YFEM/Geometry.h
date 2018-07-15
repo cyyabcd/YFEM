@@ -18,21 +18,5 @@ namespace YFEM
 		}
 		T x[2];
 	};
-	
-	class PointList
-	{
-	public:
-		PointList()
-		{
-
-		}
-
-		~PointList()
-		{
-		}
-
-	private:
-
-	};
 
 }
