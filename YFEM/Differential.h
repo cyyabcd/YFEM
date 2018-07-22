@@ -1,5 +1,5 @@
 #pragma once
-#include "Polynomial.h"
+#include "Polynomial.hpp"
 
 namespace YFEM
 {

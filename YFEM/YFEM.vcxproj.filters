@@ -57,9 +57,6 @@
     <ClInclude Include="FEM.h">
       <Filter>include\FEM</Filter>
     </ClInclude>
-    <ClInclude Include="Polynomial.h">
-      <Filter>include\Calculus</Filter>
-    </ClInclude>
     <ClInclude Include="Integration.h">
       <Filter>include\Calculus</Filter>
     </ClInclude>
@@ -71,6 +68,12 @@
     </ClInclude>
     <ClInclude Include="Graph.h">
       <Filter>include\Topology</Filter>
+    </ClInclude>
+    <ClInclude Include="Polynomial.hpp">
+      <Filter>include\Calculus</Filter>
+    </ClInclude>
+    <ClInclude Include="Small.h">
+      <Filter>include\LinearAlgebra</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

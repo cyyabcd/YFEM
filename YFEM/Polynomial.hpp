@@ -7,20 +7,13 @@ namespace YFEM
 	struct Polynomial
 	{
 		Polynomial(dgree_t d)
-			:dgree(d), p(std::vector<T>((d + 2)*(d + 1) / 2))
+			:dgree(d),
+			p(std::vector<T>((d + 2)*(d + 1) / 2, static_cast<T>(0)))
 		{
-			for (index_t i = 0; i < p.size(); ++i)
-			{
-				p[i] = static_cast<T>(0);
-			}
 		}
 		Polynomial(dgree_t d, T* coefficient)
-			:dgree(d), p(std::vector<T>((d + 2)*(d + 1) / 2))
+			:dgree(d), p(std::vector<T>(coefficient, coefficient + (d + 2)*(d + 1) / 2))
 		{
-			for (index_t i = 0; i < p.size(); ++i) 
-			{
-				p[i] = coefficient[i];
-			}
 		}
 
 		T operator() (T x, T y) {
@@ -36,7 +29,11 @@ namespace YFEM
 			return sum;
 		}
 
-		T& operator[] (index_t i)
+		T& operator[] (const index_t i)
+		{
+			return p[i];
+		}
+		const T& operator[] (const index_t i) const
 		{
 			return p[i];
 		}
@@ -75,4 +72,6 @@ namespace YFEM
 		dgree_t dgree;
 		std::vector<T> p;
 	};
+
+
 }

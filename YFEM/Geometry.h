@@ -6,17 +6,33 @@ namespace YFEM
 	template<typename T>
 	struct Point
 	{
-		Point(T& x, T& y)
+		Point() :x(0), y(0)
 		{
-			x[0] = x;
-			x[1] = y;
 		}
-		Set(T&x, T&y)
+		Point(const T& x, const T& y)
+			:x(x), y(y)
 		{
-			x[0] = x;
-			x[1] = y;
 		}
-		T x[2];
+		void Set(const T& x, const T& y)
+		{
+			_x[0] = x;
+			_x[1] = y;
+		}
+		union
+		{
+			T _x[2];
+			T x, y;
+		};
+	};
+
+	template<typename T>
+	struct Rectangle
+	{
+		Rectangle(T l, T r, T d, T u)
+			:l(l), r(r), u(u), d(d)
+		{
+		}
+		T l, r, u, d;
 	};
 
 }
