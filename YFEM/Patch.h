@@ -5,11 +5,11 @@ namespace YFEM
 {
 	struct Patch
 	{
-		Patch(count_t ElementNum) :ElementNum(ElementNum)
+		Patch(count_t elementNum) :elementNum(elementNum)
 		{
 		}
 		Patch(index_t x, index_t y)
-			:ElementNum(x*y), position(std::vector<index_t[2]>(ElementNum))
+			:elementNum(x*y), position(std::vector<index_t[2]>(elementNum))
 		{
 			maxx = x - 1;
 			maxy = y - 1;
@@ -22,7 +22,7 @@ namespace YFEM
 				}
 			}
 		}
-		count_t ElementNum;
+		count_t elementNum;
 		index_t maxx, maxy;
 		std::vector<index_t[2]> position;
 	};

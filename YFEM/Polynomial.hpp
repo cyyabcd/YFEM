@@ -8,11 +8,11 @@ namespace YFEM
 	{
 		Polynomial(dgree_t d)
 			:dgree(d),
-			p(std::vector<T>((d + 2)*(d + 1) / 2, static_cast<T>(0)))
+			p(std::move(std::vector<T>((d + 2)*(d + 1) / 2, static_cast<T>(0))))
 		{
 		}
 		Polynomial(dgree_t d, T* coefficient)
-			:dgree(d), p(std::vector<T>(coefficient, coefficient + (d + 2)*(d + 1) / 2))
+			:dgree(d), p(std::move(std::vector<T>(coefficient, coefficient + (d + 2)*(d + 1) / 2)))
 		{
 		}
 
@@ -72,6 +72,4 @@ namespace YFEM
 		dgree_t dgree;
 		std::vector<T> p;
 	};
-
-
 }

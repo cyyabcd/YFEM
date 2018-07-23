@@ -5,13 +5,6 @@
 
 namespace YFEM
 {
-	template<typename T>
-	T Integration(const Polynomial<T>& u, const Polynomial<T>& v)
-	{
-		T sum = 0;
-
-	}
-
 	//多项式u, v 在[-1, 1]^2上的L2内积
 	template<typename T>
 	T InnerProduct(const Polynomial<T>& u, const Polynomial<T>& v)

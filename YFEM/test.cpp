@@ -22,5 +22,6 @@ int main(int argc, char* argv[])
 	double ip = InnerProduct(fp, P);
 	Rectangle<double> rect(-1, 1, -1, 1);
 	val = InnerProduct(f, 1, 0, rect);
+
 	system("PAUSE");
 }

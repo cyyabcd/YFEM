@@ -18,8 +18,8 @@ namespace YFEM
 
 	protected:
 
-		std::vector<Point> PointLists;
-
+		std::vector<Point> PointList;
+		std::vector<Quadrangle> RectangleList;
 
 	};
 
