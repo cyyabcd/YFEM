@@ -15,13 +15,13 @@ namespace YFEM
 		}
 		void Set(const T& x, const T& y)
 		{
-			_x[0] = x;
-			_x[1] = y;
+			this->x = x;
+			this->y = y;
 		}
 		union
 		{
 			T _x[2];
-			T x, y;
+			struct { T x, y; };
 		};
 	};
 
