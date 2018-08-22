@@ -32,7 +32,14 @@ namespace YFEM
 			:l(l), r(r), u(u), d(d)
 		{
 		}
+
+		bool InRect(T x, T y)
+		{
+			return (x >= l && x <= r && y >= d && y <= u);
+		}
+
 		T l, r, u, d;
+
 	};
 
 }

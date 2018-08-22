@@ -5,19 +5,22 @@
 namespace YFEM
 {
 	template<typename T>
-	class Mesh
+	class RectangleMesh
 	{
 	public:
-		Mesh()
+		RectangleMesh(count_t M, count_t N, const RectangleDomain& domain)
+			:M(M), N(N)
 		{
+			
 		}
 
 		~Mesh()
 		{
+
 		}
 
 	protected:
-
+		count_t M, N;
 		std::vector<Point> PointList;
 		std::vector<Quadrangle> RectangleList;
 

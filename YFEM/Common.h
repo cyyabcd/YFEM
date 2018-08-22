@@ -19,6 +19,7 @@
 #define MAX(a,b) (a>b)?a:b
 #define MIN(a,b) (a<b)?a:b
 
+
 namespace YFEM
 {
 	typedef int				index_t;
@@ -27,6 +28,23 @@ namespace YFEM
 	typedef unsigned char	byte_t;
 	typedef unsigned short	word_t;
 	typedef unsigned int	dword_t;
+
+	template<typename T>
+	class real_t {};
+	template<>
+	static class real_t<float>
+	{
+	public:
+		float max = FLT_MAX;
+		float min = FLT_MIN;
+	};
+	template<>
+	static class real_t<double>
+	{
+		double max = DBL_MAX;
+		double min = DBL_MIN;
+	};
+
 }
 
 #define TEST 1
