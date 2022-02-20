@@ -1,67 +1,97 @@
 %% 添加路径
 addpath(genpath(['..' filesep  '..' filesep 'Matlab']));
-%% 几何信息
 
-N = 1; 
+%% 几何信息
+N = 2; 
 [elementList, nodeList] = CubeMesh(N, [1 1 1], [0 0 0]);
 nodeNum = (N+1)^3;
 elementNum = N^3;
 
-pde=example1;
+%% 右端项
+pde = example1;
 
 %% 参考单元
-referenceDofNum = 30;
-elementInfo = CreateGeometryInformationOnCubeElement(elementList(1,:), nodeList);
-
-[elementToFace,NF]= CreateElementToFace(elementList);
-elementToDof= CreateElementToDof(elementList);
-
-elementToDofu=1:elementNum;
-
-
+[refElementList, refNodeList] = CubeMesh(1, [1 1 1], [-1 -1 -1]);
+elementInfo = CreateGeometryInformationOnCubeElement(refElementList(1,:), refNodeList);
 [femBase, bubbleBase, shapeSpace, bubbleSpace] = CalculateBrinkmanBaseOnElement(elementInfo, referenceDofNum);
-
 
 for i = 1:3
     femBase{i}.IgnoreSmallErrors();
     bubbleBase{i}.IgnoreSmallErrors();
 end
+
+elementInfo = CreateGeometryInformationOnCubeElement(elementList(1,:), nodeList);
+h = elementInfo.upper - elementInfo.lower;
+v = Multinomials(3, 1, 3);
+for i = 1:3
+    v.coefficient(i, 1) = -1;
+    v.coefficient(i, i+1) = 2/h(i);
+end
+for i = 1:3
+    femBase{i} = femBase{i}.Substitute(v);
+    bubbleBase{i} = bubbleBase{i}.Substitute(v);
+end
+
 pressureBase = Multinomials(3, 0, 1);
 pressureBase.coefficient(1) = 1;
 
-
-GradFemBase = MultinomialsTensorGrad(femBase); % tensor 
+gradFemBase = MultinomialsTensorGrad(femBase); % tensor 
 divFemBase = MultinomialsTensorDiv(femBase);% vector 
-GradBubbleBase = MultinomialsTensorGrad(bubbleBase); %tensor 
+gradBubbleBase = MultinomialsTensorGrad(bubbleBase); %tensor 
 
-% stiffness matrix on ref cube
-A = CreateStiffnessMatrixTensor(GradFemBase, GradFemBase, elementInfo);
-B = CreateStiffnessMatrixTensor(GradBubbleBase, GradFemBase, elementInfo);
-C = CreateStiffnessMatrixTensor(GradBubbleBase, GradBubbleBase, elementInfo);
+%% stiffness matrix on ref cube
+A = CreateStiffnessMatrixTensor(gradFemBase, gradFemBase, elementInfo);
+B = CreateStiffnessMatrixTensor(gradBubbleBase, gradFemBase, elementInfo);
+C = CreateStiffnessMatrixTensor(gradBubbleBase, gradBubbleBase, elementInfo);
 D = CreateStiffnessMatrixMul(divFemBase, pressureBase, elementInfo);
+AA = [A, B'; B, C];
+DD =-[D; zeros(size(C,1),1)];
+%% ElementToDof
+[elementToFace, faceList]= CreateElementToFace(elementList);
+elementToDof= CreateElementToDof(elementList);
+elementToDofu = (1:elementNum)';
 
+% LHS
+LHS = CreateStiffnessMatrixGlobally(AA, DD, elementToDof, elementToDofu);
 
-AA = [A, B'; B,C];
+% RHS
 F = getF(nodeList,elementList,femBase,bubbleBase,pde,elementToDof);
-RHS = zeroselementNum
+RHS = [F;zeros(elementNum,1)];
 
 
-    
+%% Boundary
+bf = @(x) any([x(:,1)==0, x(:,1)==1, x(:,2)==0, x(:,2)==1, x(:,3)==0, x(:,3)==1], 2);
+isBoundaryNode = bf(nodeList);
+isBoundaryFace = FindBoundary(faceList, isBoundaryNode);
+faceNum = size(faceList,1);
+totalDofNum = max(max(elementToDof));
+isBoundaryDof1 = (isBoundaryFace*ones(1,3))';
+isBoundaryDof2 = (isBoundaryFace*ones(1,2))';
+isBoundaryDof = [isBoundaryDof1(:) 
+for i=1:totalDofNum
+    if isBoundaryDof(i)==1
+        RHS(i)=0;
+        LHS(i,:)=0;
+        LHS(:,i)=0;
+        LHS(i,i)=1;
+    end
+end
+LHS = [LHS; sparse(1, totalDofNum) ones(1,elementNum)];
+RHS = [RHS; 0];
+uh = LHS\RHS;
 
+%%
+variableFemBase = { {femBase{1}, bubbleBase{1}}; {femBase{2}, bubbleBase{2}}; {femBase{3}, bubbleBase{3}}};
 
-%% Global
-% [LHS, RHS] = CreateStiffnessMatrixGlobally(AA, D, F,elementToDof, elementToDofu);
-
-
-
-
-
-
-%% 
-%A = CreateStiffnessMatrixTensor(epsilonFemBase, epsilonFemBase, elementInfo);
-%B = CreateStiffnessMatrixTensor(epsilonBubbleBase, epsilonFemBase, elementInfo);
-%C = CreateStiffnessMatrixTensor(epsilonBubbleBase, epsilonBubbleBase, elementInfo);
-%D = CreateStiffnessMatrixMul(divFemBase, pressureBase, elementInfo);
-%epsilonFemBase = MultinomialsTensorSymmetricalGradient(femBase);
-%epsilonBubbleBase = MultinomialsTensorSymmetricalGradient(bubbleBase);
-
+pN = N;
+y = zeros(1+pN,1+pN,1+pN,3);
+tu = zeros(1+pN,1+pN,1+pN,3);
+for k = 0:pN
+    for j = 0:pN
+        for i = 0:pN
+            y(i+1,j+1,k+1,:) = CalculateSolutionOnCubeMesh([i,j,k]/pN, N, 1/N, 0, uh, variableFemBase, elementToDof);
+            tu(i+1,j+1,k+1,:) = pde.exactu([i,j,k]/pN);
+        end
+    end
+end
+eu = y-tu;

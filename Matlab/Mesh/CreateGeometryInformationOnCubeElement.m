@@ -4,7 +4,8 @@ Info.element = element;
 Info.type = "cube";
 %% nodes
 Info.nodes = NodeList(element,:);
-
+Info.lower = min(Info.nodes);
+Info.upper = max(Info.nodes);
 %% edges
 Info.edgeId = [1 2;1 3;1 5;2 4;2 6;3 4;3 7;4 8;5 6;5 7;6 8;7 8];
 Info.edge = sort(element(Info.edgeId), 2);

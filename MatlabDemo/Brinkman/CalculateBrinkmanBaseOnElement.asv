@@ -7,9 +7,12 @@ for i=1:3
     shapeSpace{i} = Multinomials(nDim, 2, 18);
     shapeSpace{i}.coefficient((i-1)*4+1:4*i,1:4) = eye(4); 
 end
-shapeSpace{1}.coefficient(13:18,5:10) = [0 3  0 0  0 0;-1 0 0  0 0 0;-1  0 0 0 0 0;0 0 0 3  0  0;0 0 0 -1 0  0;0 -1  0 0 0 0];
-shapeSpace{2}.coefficient(13:18,5:10) = [0 0 -1 0  0 0; 0 3 0  0 0 0; 0 -1 0 0 0 0;0 0 0 0 -1  0;0 0 0  0 3  0;0  0 -1 0 0 0];
-shapeSpace{3}.coefficient(13:18,5:10) = [0 0  0 0 -1 0; 0 0 0 -1 0 0; 0  0 0 3 0 0;0 0 0 0  0 -1;0 0 0  0 0 -1;0  0  0 0 3 0];
+shapeSpace{1}.coefficient(13:18,5:10) = [0 3 0 0 0 0;-1 0 0 0 0 0;-1 0 0 0 0 0;0 0 0 3 0 0;0 0 0 -1 0 0;0 -1 0 0 0 0];
+shapeSpace{2}.coefficient(13:18,5:10) = [0 0 -1 0 0 0;0 3 0 0 0 0;0 -1 0 0 0 0;0 0 0 0 -1 0;0 0 0 0 3 0;0 0 -1 0 0 0];
+shapeSpace{3}.coefficient(13:18,5:10) = [0 0 0 0 -1 0;0 0 0 -1 0 0;0 0 0 3 0 0;0 0 0 0 0 -1;0 0 0 0 0 -1;0 0 0 0 3 0];
+h = elementInfo.upper - elementInfo.lower;
+v = Multinomials(nDim, 1, 3);
+v.coefficient()
 
 FEM3dP1 = Multinomials(nDim, 1, 4);
 FEM3dP1.coefficient = eye(4);

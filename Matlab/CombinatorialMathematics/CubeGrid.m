@@ -1,5 +1,5 @@
 function solution = CubeGrid(lower, upper)
-%求 start(i) <= x(i) <= end(i) 的整数解, 由数学推导易知共 \Pi (end(i)-start(i)) 个
+%求 start(i) <= x(i) <= end(i) 的整数解, 由数学推导易知共 \Pi (end(i)-start(i)+1) 个
 indNum = upper-lower+1;
 solutionNum = prod(indNum);
 n = length(lower);

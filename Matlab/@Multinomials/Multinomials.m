@@ -176,11 +176,16 @@ classdef Multinomials < handle
         end
         
         function dx = Derivate(self, varid)
-            remove = self.exponent(:, varid)==0;
-            scalar = self.exponent(:, varid);
-            p = self.coefficient.*scalar';
-            dx = Multinomials(self.n, self.k-1, self.m);
-            dx.coefficient = p(:, ~remove);
+            if self.k == 0
+                dx = Multinomials(self.n, 0, self.m);
+            else
+                assert(varid<=self.n, 'varid is greater than variable number!');
+                remove = self.exponent(:, varid)==0;
+                scalar = self.exponent(:, varid);
+                p = self.coefficient.*scalar';
+                dx = Multinomials(self.n, self.k-1, self.m);
+                dx.coefficient = p(:, ~remove);
+            end
         end
         
         function value = IntegralOnCube(self, cubeNodes, d)

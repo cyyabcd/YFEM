@@ -20,9 +20,10 @@ nQuad = size(GaussPt,1);
 %% evaluation of the basis function 
 vhValue = zeros(30,nQuad,3);
 for p = 1:nQuad
+    pxyz =  node(elem(1,1),:)+[hx(1) hy(1) hz(1)].* GaussPt(p,:);
     for j = 1:3
-        vhValue(1:18,p,j) = v1h{j}.Evaluation(GaussPt(p,:));
-        vhValue(19:30,p,j) = v2h{j}.Evaluation(GaussPt(p,:));
+        vhValue(1:18,p,j) = v1h{j}.Evaluation(pxyz);
+        vhValue(19:30,p,j) = v2h{j}.Evaluation(pxyz);
     end
 end
 

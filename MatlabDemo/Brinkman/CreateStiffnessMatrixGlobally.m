@@ -11,19 +11,16 @@ MB = sparse(totalDofNum, totalDofNumu);
 
 
 for e = 1:elementNum
-    q = e-floor((e-1)/6)*6;
-    SA = A(:,:,q);
-    SB = B(:,:,q);
     TA = elementToDof(e,:)'*ones(1,dofNum);
     TTA = TA';
     TB = elementToDof(e,:)'*ones(1,dofNumu);
     TTB = ones(dofNum,1)*elementToDofu(e,:);
 
-    indA = SA~=0;
-    indB = SB~=0;
+    indA = A~=0;
+    indB = B~=0;
 
-    MA = MA + sparse(TA(indA),TTA(indA), SA(indA), totalDofNum, totalDofNum);
-    MB = MB + sparse(TB(indB),TTB(indB), SB(indB), totalDofNum, totalDofNumu);
+    MA = MA + sparse(TA(indA),TTA(indA), A(indA), totalDofNum, totalDofNum);
+    MB = MB + sparse(TB(indB),TTB(indB), B(indB), totalDofNum, totalDofNumu);
 
 end
 LHS = [MA MB; MB' sparse(totalDofNumu, totalDofNumu)];
